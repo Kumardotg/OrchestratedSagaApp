@@ -1,0 +1,6 @@
+@OrchestratedSagaApp_HostAddress = http://localhost:5062
+
+GET {{OrchestratedSagaApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

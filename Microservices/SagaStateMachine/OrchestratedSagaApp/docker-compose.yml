@@ -1,0 +1,32 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  orchestratedsagaapp:
+    image: orchestratedsagaapp
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 6000:6000
+      - 6001:6001
+    networks:
+        - app-network
+
+  
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+        - app-network
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+networks:
+  app-network:
+    driver: bridge
